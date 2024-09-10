@@ -28,10 +28,11 @@ class Ship:
 
     def update(self):
         """根据移动标志调整⻜船的位置"""
-
-        if self.moving_right:
+        """self.rect.right 图形的右边界"""
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        if self.moving_left:
+        """左边缘"""
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
         # 根据 self.x 更新 rect 对象
