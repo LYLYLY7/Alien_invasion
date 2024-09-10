@@ -1,6 +1,5 @@
 import pygame
 
-
 class Ship:
     """管理飞船的类"""
     """ai_game引用AlienInvasion实例"""
