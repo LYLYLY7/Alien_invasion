@@ -8,6 +8,7 @@ class AlienInvasion:
     def __init__(self):
         """初始化游戏并创建游戏资源"""
         pygame.init()
+        self.clock = pygame.time.Clock()
         # 绘制窗口宽1200 高800
         self.screen = pygame.display.set_mode((1200, 800))
         # 窗口标题
@@ -23,6 +24,8 @@ class AlienInvasion:
                     sys.exit()
             # 让最近绘制的屏幕可⻅，不断更新屏幕
             pygame.display.flip()
+            # 循环尽量保证每秒运行60次
+            self.clock.tick(60)
 
 
 if __name__ == '__main__':
