@@ -16,3 +16,6 @@ class Settings:
         self.bullet_color = (60, 60, 60)
         """未消失的子弹"""
         self.bullets_allowed = 3
+        # 外星人设置
+        self.alien_speed = 1.0
+

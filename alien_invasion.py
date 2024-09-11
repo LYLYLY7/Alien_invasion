@@ -39,6 +39,8 @@ class AlienInvasion:
             self.ship.update()
             # 更新子弹位置,删除消失子弹
             self._update_bullets()
+            # 更新外星人
+            self._update_aliens()
             # 重新渲染屏幕
             self._update_screen()
             # 循环尽量保证每秒运行60次
@@ -115,6 +117,10 @@ class AlienInvasion:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+
+    def _update_aliens(self):
+        """更新外星舰队中所有外星⼈的位置"""
+        self.aliens.update()
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
