@@ -93,9 +93,19 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """创建一个外星舰队"""
-        # 创建一个外星人
+        # 创建一个外星人，再不断添加，直到没有空间添加外星⼈为⽌
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+
+        current_x = alien_width
+        """余下的空间超过外星人宽度的两倍"""
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            new_alien = Alien(self)
+            """新外星人的水平位置设置为第一个外星人宽度位置"""
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            self.aliens.add(new_alien)
+            current_x += 2 * alien_width
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
