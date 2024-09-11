@@ -95,22 +95,25 @@ class AlienInvasion:
         """创建一个外星舰队"""
         # 创建一个外星人，再不断添加，直到没有空间添加外星⼈为⽌
         alien = Alien(self)
-        alien_width = alien.rect.width
+        # 外星⼈的间距为外星⼈的宽度和外星⼈的⾼度
+        alien_width, alien_height = alien.rect.size
+        current_x, current_y = alien_width, alien_height
+        while current_y < (self.settings.screen_height - 3 * alien_height):
+            """余下的空间超过外星人宽度的两倍"""
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                self._create_alien(current_x, current_y)
+                current_x += 2 * alien_width
+            # 添加⼀⾏外星⼈后，重置 x 值并递增 y 值
+            current_x = alien_width
+            current_y += 2 * alien_height
 
-        current_x = alien_width
-        """余下的空间超过外星人宽度的两倍"""
-        while current_x < (self.settings.screen_width - 2 * alien_width):
-            new_alien = Alien(self)
-            self._create_alien(current_x)
-            self.aliens.add(new_alien)
-            current_x += 2 * alien_width
-
-    def _create_alien(self, x_position):
-        """创建⼀个外星⼈并将其放在当前⾏中"""
+    def _create_alien(self, x_position, y_position):
+        """创建⼀个外星⼈，并将其加⼊外星舰队"""
         new_alien = Alien(self)
         """新外星人的水平位置设置为第一个外星人宽度位置"""
         new_alien.x = x_position
         new_alien.rect.x = x_position
+        new_alien.rect.y = y_position
         self.aliens.add(new_alien)
 
     def _update_screen(self):
