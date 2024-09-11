@@ -53,10 +53,14 @@ class AlienInvasion:
 
     def _check_keydown_events(self, event):
         """响应按下"""
+        """监听左右移动"""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+            """监听q键退出"""
         elif event.key == pygame.K_q:
             sys.exit()
 
@@ -67,10 +71,18 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _fire_bullet(self):
+        """创建⼀颗⼦弹，并将其加⼊编组 bullets """
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
         """填充背景色"""
         self.screen.fill(self.settings.bg_color)
+        """添加子弹"""
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         """添加ship飞船"""
         self.ship.blitme()
         """重新渲染"""
