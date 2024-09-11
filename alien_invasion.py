@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 
 class AlienInvasion:
@@ -24,6 +25,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         """将子弹存储到编组中"""
         self.bullets = pygame.sprite.Group()
+        """将外星人存储到编组中"""
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -76,6 +80,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
     def _update_bullets(self):
         """更新⼦弹的位置并删除已消失的⼦弹"""
         # 更新⼦弹的位置
@@ -86,6 +91,12 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _create_fleet(self):
+        """创建一个外星舰队"""
+        # 创建一个外星人
+        alien = Alien(self)
+        self.aliens.add(alien)
+
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
         """填充背景色"""
@@ -95,6 +106,8 @@ class AlienInvasion:
             bullet.draw_bullet()
         """添加ship飞船"""
         self.ship.blitme()
+        """添加外星人"""
+        self.aliens.draw(self.screen)
         """重新渲染"""
         pygame.display.flip()
 
