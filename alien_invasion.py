@@ -33,13 +33,8 @@ class AlienInvasion:
             self._check_events()
             # 更新船位置
             self.ship.update()
-            # 更新子弹位置
-            """self.bullets.update() 将为 bullets 编组中的每颗⼦弹调⽤ bullet.update()"""
-            self.bullets.update()
-            # 删除已消失的子弹
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            # 更新子弹位置,删除消失子弹
+            self._update_bullets()
             # 重新渲染屏幕
             self._update_screen()
             # 循环尽量保证每秒运行60次
@@ -81,6 +76,15 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+    def _update_bullets(self):
+        """更新⼦弹的位置并删除已消失的⼦弹"""
+        # 更新⼦弹的位置
+        self.bullets.update()
+
+        # 删除已经消失的子弹
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
