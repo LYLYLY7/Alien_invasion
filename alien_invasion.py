@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -20,6 +21,8 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         """Ship(self) self:指向的是当前的 AlienInvasion 实例"""
         self.ship = Ship(self)
+        """将子弹存储到编组中"""
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -27,8 +30,11 @@ class AlienInvasion:
         while True:
             # 监听键盘鼠标事件
             self._check_events()
-            # 更新船向右位置
+            # 更新船位置
             self.ship.update()
+            # 更新子弹位置
+            """self.bullets.update() 将为 bullets 编组中的每颗⼦弹调⽤ bullet.update()"""
+            self.bullets.update()
             # 重新渲染屏幕
             self._update_screen()
             # 循环尽量保证每秒运行60次
