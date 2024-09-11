@@ -1,4 +1,5 @@
 import sys
+
 import pygame
 from settings import Settings
 from ship import Ship
@@ -35,6 +36,10 @@ class AlienInvasion:
             # 更新子弹位置
             """self.bullets.update() 将为 bullets 编组中的每颗⼦弹调⽤ bullet.update()"""
             self.bullets.update()
+            # 删除已消失的子弹
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
             # 重新渲染屏幕
             self._update_screen()
             # 循环尽量保证每秒运行60次
