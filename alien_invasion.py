@@ -77,6 +77,19 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _check_fleet_edges(self):
+        """在有外星⼈到达边缘时采取相应的措施"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """将整个外星舰队向下移动，并改变它们的⽅向"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     def _fire_bullet(self):
         """创建新⼦弹，并将其加⼊编组 bullets """
         if len(self.bullets) < self.settings.bullets_allowed:
@@ -119,6 +132,8 @@ class AlienInvasion:
         self.aliens.add(new_alien)
 
     def _update_aliens(self):
+        """检查是否有外星⼈位于屏幕边缘，并更新整个外星舰队的位置"""
+        self._check_fleet_edges()
         """更新外星舰队中所有外星⼈的位置"""
         self.aliens.update()
 
