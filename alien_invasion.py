@@ -16,8 +16,8 @@ class AlienInvasion:
     def __init__(self):
         """初始化游戏并创建游戏资源"""
         pygame.init()
-        # 游戏启动后处于活动状态
-        self.game_active = True
+        # 让游戏在⼀开始处于⾮活动状态
+        self.game_active = False
         # 计时
         self.clock = pygame.time.Clock()
 
