@@ -12,4 +12,5 @@ class GameStats:
         self.score = 0
         # 在任何情况下都不应重置最⾼分
         self.high_score = 0
+        self.level = 1
 
