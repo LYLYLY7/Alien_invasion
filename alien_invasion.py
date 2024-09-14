@@ -74,8 +74,7 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """在玩家单击 Play 按钮时开始新游戏"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        # 检查⿏标的单击位置是否在 Play按钮的 rect 内
-        if self.play_button.rect.collidepoint(mouse_pos):
+        if button_clicked and not self.game_active:
             # 重置游戏的统计信息
             self.stats.reset_status()
             self.game_active = True
