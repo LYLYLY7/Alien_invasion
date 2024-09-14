@@ -26,9 +26,9 @@ class Settings:
         self.fleet_direction = 1
         # 以什么速度加快游戏的节奏
         self.speedup_scale = 1.1
-        self.initialize_dynamic_settings()
         # 外星⼈分数的提⾼速度
         self.score_scale = 1.5
+        self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
         """初始化随游戏进⾏⽽变化的设置"""
