@@ -149,6 +149,7 @@ class AlienInvasion:
             # # 清空屏幕上的子弹
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         """创建一个外星舰队"""
