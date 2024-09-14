@@ -16,6 +16,8 @@ class AlienInvasion:
     def __init__(self):
         """初始化游戏并创建游戏资源"""
         pygame.init()
+        # 游戏启动后处于活动状态
+        self.game_active = True
         # 计时
         self.clock = pygame.time.Clock()
 
@@ -40,12 +42,13 @@ class AlienInvasion:
         while True:
             # 监听键盘鼠标事件
             self._check_events()
-            # 更新船位置
-            self.ship.update()
-            # 更新子弹位置,删除消失子弹
-            self._update_bullets()
-            # 更新外星人
-            self._update_aliens()
+            if self.game_active:
+                # 更新船位置
+                self.ship.update()
+                # 更新子弹位置,删除消失子弹
+                self._update_bullets()
+                # 更新外星人
+                self._update_aliens()
             # 重新渲染屏幕
             self._update_screen()
             # 循环尽量保证每秒运行60次
@@ -177,16 +180,19 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """响应飞船和外星人的碰撞"""
-        # 将ships_left 减1
-        self.stats.ships_left -= 1
-        # 清空外星⼈列表和⼦弹列表
-        self.bullets.empty()
-        self.aliens.empty()
-        # 创建⼀个新的外星舰队，并将⻜船放在屏幕底部的中央
-        self._create_fleet()
-        self.ship.center_ship()
-        # 暂停
-        sleep(0.5)
+        if self.stats.ships_left > 0:
+            # 将ships_left 减1
+            self.stats.ships_left -= 1
+            # 清空外星⼈列表和⼦弹列表
+            self.bullets.empty()
+            self.aliens.empty()
+            # 创建⼀个新的外星舰队，并将⻜船放在屏幕底部的中央
+            self._create_fleet()
+            self.ship.center_ship()
+            # 暂停
+            sleep(0.5)
+        else:
+            self.game_active = False
 
     def _check_aliens_bottom(self):
         """检查是否有外星⼈到达了屏幕的下边缘"""
