@@ -8,6 +8,7 @@ from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from button import Button
 
 
 class AlienInvasion:
@@ -35,6 +36,8 @@ class AlienInvasion:
         """将外星人存储到编组中"""
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        # 创建 Play 按钮
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -175,6 +178,9 @@ class AlienInvasion:
         self.ship.blitme()
         """添加外星人"""
         self.aliens.draw(self.screen)
+        # 如果游戏处于⾮活动状态，就绘制 Play 按钮
+        if not self.game_active:
+            self.play_button.draw_button()
         """重新渲染"""
         pygame.display.flip()
 
