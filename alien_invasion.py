@@ -84,6 +84,8 @@ class AlienInvasion:
             # 创建⼀个新的外星舰队，并将⻜船放在屏幕底部的中央
             self._create_fleet()
             self.ship.center_ship()
+            # 隐藏光标
+            pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event):
         """响应按下"""
@@ -216,6 +218,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_aliens_bottom(self):
         """检查是否有外星⼈到达了屏幕的下边缘"""
